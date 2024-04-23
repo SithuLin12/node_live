@@ -16,13 +16,7 @@ app.get("/", (req, res) => {
 });
 
 /**----socket setup---- */
-
-const io = socket(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST", "OPTIONS"]
-  }
-});
+const io = socket(server, { cors: { origin: '*' } }); // Use the 'server' object
 io.on("connection", (socket) => {
   socket.on("chat", (data) => {
     io.sockets.emit("chat", data);
