@@ -1,5 +1,6 @@
 let express = require("express");
 let socket = require("socket.io");
+
 /**----app setup---- */
 let app = express();
 app.use(express.static('public'));
@@ -14,7 +15,7 @@ app.get("/", (res, req) => {
 });
 
 /**----socket setup---- */
-let io = socket(server);
+var io = require('socket.io')(http,  { cors: { origin: '*' } });
 io.on("connection", (socket) => {
   socket.on("chat", (data) => {
     io.sockets.emit("chat", data);
