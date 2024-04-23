@@ -1,19 +1,12 @@
 const express = require("express");
-const socketio = require("socket.io");
+const socket = require("socket.io");
 
 /**----app setup---- */
 const app = express();
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-	res.setHeader('Access-Control-Allow-Credentials', true);
-	next();
-});
 app.use(express.static('public'));
 
 /**----server setup---- */
-const server = app.listen(4000,'0.0.0.0',  () => {
+const server = app.listen(4000, () => {
   console.log("Project is running on localhost:4000");
 });
 
@@ -23,7 +16,8 @@ app.get("/", (req, res) => {
 });
 
 /**----socket setup---- */
-const io = socketio(server, {
+
+const io = socket(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST", "OPTIONS"]
