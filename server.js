@@ -1,10 +1,5 @@
 const express = require("express");
 const socket = require("socket.io");
-const io = require('socket.io')(server, {
-  cors: {
-      origin: ['https://group.livechatmm.com',],
-  }
-});
 
 /**----app setup---- */
 const app = express();
@@ -21,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 /**----socket setup---- */
-
+const io = socket(server, { cors: { origin: '*' } }); // Use the 'server' object
 io.on("connection", (socket) => {
   socket.on("chat", (data) => {
     io.sockets.emit("chat", data);
