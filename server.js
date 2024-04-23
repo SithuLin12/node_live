@@ -1,5 +1,5 @@
 const express = require("express");
-const socket = require("socket.io");
+const socketio = require("socket.io");
 
 /**----app setup---- */
 const app = express();
@@ -23,7 +23,12 @@ app.get("/", (req, res) => {
 });
 
 /**----socket setup---- */
-const io = require('socket.io')(server);
+const io = socketio(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST", "OPTIONS"]
+  }
+});
 io.on("connection", (socket) => {
   socket.on("chat", (data) => {
     io.sockets.emit("chat", data);
