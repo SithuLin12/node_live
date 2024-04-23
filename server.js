@@ -6,7 +6,7 @@ const app = express();
 app.use(express.static('public'));
 
 /**----server setup---- */
-const server = app.listen(4000, () => {
+const server = app.listen(4000,'0.0.0.0',  () => {
   console.log("Project is running on localhost:4000");
 });
 
@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 /**----socket setup---- */
-const io = socket(server, { cors: { origin: '*' } }); // Use the 'server' object
+const io = require('socket.io')(server);
 io.on("connection", (socket) => {
   socket.on("chat", (data) => {
     io.sockets.emit("chat", data);
