@@ -1,21 +1,22 @@
-let express = require("express");
-let socket = require("socket.io");
+const express = require("express");
+const socket = require("socket.io");
 
 /**----app setup---- */
-let app = express();
+const app = express();
 app.use(express.static('public'));
+
 /**----server setup---- */
-let server = app.listen(4000, () => {
-  console.log("project is running on localhost:4000");
+const server = app.listen(4000, () => {
+  console.log("Project is running on localhost:4000");
 });
 
 /**----route setup---- */
-app.get("/", (res, req) => {
-  req.sendFile(__dirname + "/public/index.html");
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
 });
 
 /**----socket setup---- */
-var io = require('socket.io')(http,  { cors: { origin: '*' } });
+const io = socket(server, { cors: { origin: '*' } }); // Use the 'server' object
 io.on("connection", (socket) => {
   socket.on("chat", (data) => {
     io.sockets.emit("chat", data);
